@@ -1,4 +1,4 @@
-module Parser where 
+module Lib where 
 
 import Prelude hiding ((<*>),(<$>))
 
@@ -63,9 +63,7 @@ spaces = zeroOrMore
 
 symbol' a = (\ a b c -> b) <$> spaces <*> symbol a <*> spaces
 
-token t = (\r _ -> r) <$> token t <*> spaces
-
-
+token' t  = (\ a b c -> b) <$> spaces <*> token t <*> spaces
 
 -- | enclosedBy
 -- | separatedBy

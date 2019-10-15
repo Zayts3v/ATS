@@ -84,3 +84,5 @@ spaces = zeroOrMore
           (satisfy (\x -> x `elem` [' ','\t','\n']))
 
 symbol' a = (\ a b c -> b) <$> spaces <*> symbol a <*> spaces
+
+token' t  = (\ a b c -> b) <$> spaces <*> token t <*> spaces

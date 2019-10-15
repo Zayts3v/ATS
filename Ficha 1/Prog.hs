@@ -126,28 +126,30 @@ unStats :: Stats -> [Stat]
 unStats (Stats b) = b
 
 pStat :: Parser Char Stat
-pStat =  f  <$> ident           <*> symbol' '=' <*> pexp
-      <|> g <$> token "while (" <*> pexp        <*> token ")\n"      <*> token "{ " <*> pStats           <*> symbol' '}'
-      <|> h <$> token "if ("    <*> pexp        <*> token ")\nthen {" <*> pStats     <*> token "}\nelse{" <*> pStats <*> symbol' '}'
-  where f a b c         = Assign a c
-        g a b c d e f   = While b e
-        h a b c d e f g = IfThenElse b d f
+pStat =  f  <$> ident            <*> symbol' '=' <*> pexp
+      <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{" <*> pStats            <*> symbol' '}'
+      <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats      <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
+    where f a b c         = Assign a c
+          g a b c d e f   = While b e
+          h a b c d e f g = IfThenElse b d f
 
-{-
-  Exercício 1.9) No desenvolvimento do parser pProg foram utilizadas construções sintáticas
-    muito frequentes em linguagem de programação: separatedBy (lista de elementos sepa-
-    rados por um dado separador, neste exemplo ponto e virgula), enclosedBy (elementos
-    delimitados por um s ́ımbolo inicial e final, neste exemplo parentesis curvos). Defina em
-    Parser.hs estes combinadores que descartam o resultado de fazer parsing aos separado-
-    res/delimitadores.
--}
+-- | testing 1.8
+progA = "  while ( i+2 )\n  { i = 5 + 5 }"
+progB = "  if ( i + 0 )\nthen { i = i + 0 }\nelse{ i = i + 0 }"
 
---separatedBy :: Parser s a -> Parser s b -> Parser s [a]
---enclosedBy :: Parser s a -> Parser s b -> Parser s c -> parser s b
+-- | 1.9
+separatedBy :: Parser s a -> Parser s b -> Parser s [a]
+separatedBy d s =  f <$> d
+               <|> g <$> d <*> s <*> separatedBy d s
+            where f a     = [a]
+                  g a b c = a:c
 
-{-
-  Exercício 1.10) Re-escreva pProg utilizando separatedBy e enclosedBy
--}
+enclosedBy :: Parser s a -> Parser s b -> Parser s c -> Parser s b
+enclosedBy a b c = f <$> a <*> b <*> c
+        where f a b c = b 
+
+-- | 1.10
+
 
 {-
   Exercício 1.11) Adicione à biblioteca Parser.hs mais construções sintáticas frequentes
@@ -162,6 +164,3 @@ block :: Parser s a -- open delimiter
 -> Parser s f -- close delimiter
 -> Parser s [r]
 -}
-
-progA = "i = 1+2"
-progB = "while (1+2) { i= i + 10 }"
