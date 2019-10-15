@@ -65,5 +65,7 @@ symbol' a = (\ a b c -> b) <$> spaces <*> symbol a <*> spaces
 
 token t = (\r _ -> r) <$> token t <*> spaces
 
+
+
 -- | enclosedBy
 -- | separatedBy

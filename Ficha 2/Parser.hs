@@ -1,4 +1,4 @@
-data P = R Its
+data P = R Itss
 
 type Its = [It]
 
@@ -15,10 +15,6 @@ pp_Its (it:its) = pp_It it ++ " , " ++ pp_Its its
 pp_It (Decl n) = "Decl " ++ n
 pp_It (Use n) = "Use " ++ n
 pp_It (Block is) = "[" ++ pp_Its is ++ "]"
-
-
-
-
 
 
 
