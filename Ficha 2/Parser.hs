@@ -30,7 +30,6 @@ printIts (h:t)
     | ((token "Use"  (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
     | otherwise             = "," ++ (printIts t)
 
-
 {-- 
 pp_P (R its) = "[" ++ pp_Its its ++ "]"
 
@@ -45,8 +44,8 @@ pp_It (Block is) = "[" ++ pp_Its is ++ "]"
 
 -- Fazer com enclosedBy quando a solução estiver implementada na ficha anterior
 pMain :: Parser Char P
-pMain = f <$> symbol' '[' <*> pBlock <*> symbol' ']'
-    where f a b c = R b
+pMain = f <$> (enclosedBy (symbol' '[') pBlock (symbol' ']'))
+    where f a = R a
 
 pBlock :: Parser Char Its
 pBlock =  f <$> token ""

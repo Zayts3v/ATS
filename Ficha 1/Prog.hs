@@ -127,8 +127,8 @@ unStats (Stats b) = b
 
 pStat :: Parser Char Stat
 pStat =  f <$> ident            <*> symbol' '=' <*> pexp
-     <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{" <*> pStats            <*> symbol' '}'
-     <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats     <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
+     <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{"  <*> pStats            <*> symbol' '}'
+     <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats      <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
     where f a b c         = Assign a c
           g a b c d e f   = While b e
           h a b c d e f g = IfThenElse b d f
@@ -154,33 +154,30 @@ pProgV2 = f <$> pStats
     where f a = Prog a
 
 pStatsV2 :: Parser Char Stats
-pStatsV2 =  f <$> token ""
-        <|> g <$> separatedBy pStat (token' ";") <*> pStats
-    where f a   = Stats []
-          g a b = Stats (together a (unStats b))
+pStatsV2 = f <$> separatedBy pStat (token' ";")
+    where f a = Stats a
 
 pStatV2 :: Parser Char Stat
-pStatV2 =  f <$> ident            <*> symbol' '=' <*> pexp
-       <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{"  <*> pStats            <*> symbol' '}'
-       <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats      <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
-    where f a b c         = Assign a c
-          g a b c d e f   = While b e
-          h a b c d e f g = IfThenElse b d f
-
-together :: [Stat] -> [Stat] -> [Stat]
-together (h:t) lista = h:(together t lista)
+pStatV2 =  f <$> ident          <*> symbol' '=' <*> pexp
+       <|> g <$> token' "while" <*> (enclosedBy (symbol' '(') pexp (symbol' ')'))
+                                <*> (enclosedBy (symbol' '{') pStats (symbol' '}'))
+       <|> h <$> token' "if"    <*> (enclosedBy (symbol' '(') pexp (symbol' ')'))
+                                <*> token' "then" <*> (enclosedBy (symbol' '{') pStats (symbol' '}'))
+                                <*> token' "else" <*> (enclosedBy (symbol' '{') pStats (symbol' '}'))
+    where f a b c       = Assign a c
+          g a b c       = While b c
+          h a b c d e f = IfThenElse b d f
 
 -- | testing
-progC = "i = 4 + 0; i = 4 + 4; i = 5 + 4;"
+progC = "i = 4 + 0; if ( i + 0 )\nthen { i = i + 0 }\nelse{ i = i + 0 }"
 -- writeFile "output.txt" (show (pProgV2 progC))
 
 -- | 1.11
 followedBy :: Parser s a -> Parser s b -> Parser s [a]
-followedBy a b =  f <$> a
+followedBy a b =  f <$> a <*> b
               <|> g <$> a <*> b <*> followedBy a b
-        where f a     = []
+        where f a b   = [a]
               g a b c = a:c
 
 block :: Parser s a -> Parser s b-> Parser s r -> Parser s f -> Parser s [r]
-block a b c d = f <$> a <*> b <*> c <*> d <*> followedBy c b
-        where f a b c d e = e
+block a b c d = enclosedBy a (followedBy c b) d

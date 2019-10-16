@@ -98,11 +98,10 @@ enclosedBy a b c = f <$> a <*> b <*> c
         where f a b c = b
 
 followedBy :: Parser s a -> Parser s b -> Parser s [a]
-followedBy a b =  f <$> a
+followedBy a b =  f <$> a <*> b
               <|> g <$> a <*> b <*> followedBy a b
-        where f a     = []
+        where f a b   = [a]
               g a b c = a:c
 
 block :: Parser s a -> Parser s b-> Parser s r -> Parser s f -> Parser s [r]
-block a b c d = f <$> a <*> b <*> c <*> d <*> followedBy c b
-        where f a b c d e = e
+block a b c d = enclosedBy a (followedBy c b) d
