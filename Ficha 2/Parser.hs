@@ -1,4 +1,9 @@
-data P = R Itss
+module Parser where 
+
+import Prelude hiding ((<*>),(<$>))
+import Lib
+
+data P = R Its
 
 type Its = [It]
 
@@ -6,6 +11,7 @@ data It = Block Its
         | Decl String
         | Use String
 
+{-- 
 pp_P (R its) = "[" ++ pp_Its its ++ "]"
 
 pp_Its [] = ""
@@ -15,13 +21,11 @@ pp_Its (it:its) = pp_It it ++ " , " ++ pp_Its its
 pp_It (Decl n) = "Decl " ++ n
 pp_It (Use n) = "Use " ++ n
 pp_It (Block is) = "[" ++ pp_Its is ++ "]"
-
-
-
+-}
 
 pMain :: Parser Char P
 pMain = f <$> symbol' '[' <*> pBlock <*> symbol' ']'
-    where f a = R a
+    where f a b c = R b
 
 pBlock :: Parser Char Its
 pBlock =  f <$> token ""
