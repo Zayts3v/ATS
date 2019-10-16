@@ -1,3 +1,3 @@
-# ATS-Ficha2
+# ATS 2019/2020 - Trabalho Prático 1
 
-Fiz um commit
+Resolução das fichas práticas 1 e 2.
