@@ -65,5 +65,22 @@ symbol' a = (\ a b c -> b) <$> spaces <*> symbol a <*> spaces
 
 token' t  = (\ a b c -> b) <$> spaces <*> token t <*> spaces
 
--- | enclosedBy
--- | separatedBy
+separatedBy :: Parser s a -> Parser s b -> Parser s [a]
+separatedBy d s =  f <$> d
+               <|> g <$> d <*> s <*> separatedBy d s
+            where f a     = [a]
+                  g a b c = a:c
+
+enclosedBy :: Parser s a -> Parser s b -> Parser s c -> Parser s b
+enclosedBy a b c = f <$> a <*> b <*> c
+        where f a b c = b
+
+followedBy :: Parser s a -> Parser s b -> Parser s [a]
+followedBy a b =  f <$> a
+              <|> g <$> a <*> b <*> followedBy a b
+        where f a     = []
+              g a b c = a:c
+
+block :: Parser s a -> Parser s b-> Parser s r -> Parser s f -> Parser s [r]
+block a b c d = f <$> a <*> b <*> c <*> d <*> followedBy c b
+        where f a b c d e = e

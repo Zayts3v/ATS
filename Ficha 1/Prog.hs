@@ -3,7 +3,7 @@ module Ficha1 where
 import Prelude hiding ((<*>),(<$>))
 
 import Data.Char
-import Parser hiding (oneOrMore, zeroOrMore, spaces, symbol')
+import Parser hiding (oneOrMore, zeroOrMore, spaces, symbol', enclosedBy, separatedBy, followedBy, block)
 
 data Exp = AddExp Exp Exp
          | MulExp Exp Exp
@@ -126,9 +126,9 @@ unStats :: Stats -> [Stat]
 unStats (Stats b) = b
 
 pStat :: Parser Char Stat
-pStat =  f  <$> ident            <*> symbol' '=' <*> pexp
-      <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{" <*> pStats            <*> symbol' '}'
-      <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats      <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
+pStat =  f <$> ident            <*> symbol' '=' <*> pexp
+     <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{" <*> pStats            <*> symbol' '}'
+     <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats     <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
     where f a b c         = Assign a c
           g a b c d e f   = While b e
           h a b c d e f g = IfThenElse b d f
@@ -146,21 +146,41 @@ separatedBy d s =  f <$> d
 
 enclosedBy :: Parser s a -> Parser s b -> Parser s c -> Parser s b
 enclosedBy a b c = f <$> a <*> b <*> c
-        where f a b c = b 
+        where f a b c = b
 
 -- | 1.10
+pProgV2 :: Parser Char Prog
+pProgV2 = f <$> pStats
+    where f a = Prog a
 
+pStatsV2 :: Parser Char Stats
+pStatsV2 =  f <$> token ""
+        <|> g <$> separatedBy pStat (token' ";") <*> pStats
+    where f a   = Stats []
+          g a b = Stats (together a (unStats b))
 
-{-
-  Exercício 1.11) Adicione à biblioteca Parser.hs mais construções sintáticas frequentes
-    em longuagens de programação, nomeadamente:
--}
+pStatV2 :: Parser Char Stat
+pStatV2 =  f <$> ident            <*> symbol' '=' <*> pexp
+       <|> g <$> token' "while (" <*> pexp        <*> token' ")\n"       <*> token' "{"  <*> pStats            <*> symbol' '}'
+       <|> h <$> token' "if ("    <*> pexp        <*> token' ")\nthen {" <*> pStats      <*> token' "}\nelse{" <*> pStats <*> symbol' '}'
+    where f a b c         = Assign a c
+          g a b c d e f   = While b e
+          h a b c d e f g = IfThenElse b d f
 
-{-
+together :: [Stat] -> [Stat] -> [Stat]
+together (h:t) lista = h:(together t lista)
+
+-- | testing
+progC = "i = 4 + 0; i = 4 + 4; i = 5 + 4;"
+-- writeFile "output.txt" (show (pProgV2 progC))
+
+-- | 1.11
 followedBy :: Parser s a -> Parser s b -> Parser s [a]
-block :: Parser s a -- open delimiter
--> Parser s b -- syntactic symbol that follows statements
--> Parser s r -- parser of statements
--> Parser s f -- close delimiter
--> Parser s [r]
--}
+followedBy a b =  f <$> a
+              <|> g <$> a <*> b <*> followedBy a b
+        where f a     = []
+              g a b c = a:c
+
+block :: Parser s a -> Parser s b-> Parser s r -> Parser s f -> Parser s [r]
+block a b c d = f <$> a <*> b <*> c <*> d <*> followedBy c b
+        where f a b c d e = e
