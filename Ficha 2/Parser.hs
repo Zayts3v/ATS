@@ -2,9 +2,9 @@ module Parser where
 
 import Data.Char
 import Data.String
+import Lib
 
 import Prelude hiding ((<*>),(<$>))
-import Lib
 
 data P = R Its
 
@@ -14,35 +14,35 @@ data It = Block Its
         | Decl String
         | Use String
 
-instance Show It where
-    show = showIt
-
 instance Show P where
     show = showP
 
+instance Show It where
+    show = showIt
+
+instance Eq It where
+    Use  x == Use y = x == y
+    Decl x == Use y = x == y
+
 showP (R its) = "[" ++ (printIts its) ++ "]"
 
-showIt (Block its) = "[" ++ (printIts its) ++ "]" 
+showIt (Block its) = "["     ++ (printIts its) ++ "]" 
 showIt (Decl s)    = "Decl " ++ s
-showIt (Use s)     = "Use " ++ s
+showIt (Use s)     = "Use "  ++ s
 
 printIts :: [It] -> String
 printIts []   = ""
 printIts (h:[])
     | ((token "Decl" (show h)) == []) = (showIt h)
     | ((token "Use"  (show h)) == []) = (showIt h)
-    | otherwise             = ""
+    | otherwise                       = ""
 printIts (h:t)
     | ((token "Decl" (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
     | ((token "Use"  (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
-    | otherwise             = "," ++ (printIts t)
-
-instance Eq It where
-    Use  x == Use y = x == y
-    Decl x == Use y = x == y
+    | otherwise                       = "," ++ (printIts t)
 
 pMain :: Parser Char P
-pMain = f <$> (symbol' '[') <*> pBlock <*> (symbol' ']') 
+pMain = f <$> (symbol' '[') <*> pBlock <*> (symbol' ']')
     where f a b c = R b
 
 pBlock :: Parser Char Its
@@ -50,7 +50,7 @@ pBlock =  f <$> token " "
       <|> g <$> pStatment                                                   <*> pBlock
       <|> h <$> (separatedBy pStatment (token' " , "))                      <*> pBlock
       <|> i <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
-      <|> j <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock   
+      <|> j <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock
       <|> k <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
       <|> l <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock
     where f a       = []
