@@ -43,7 +43,7 @@ pexp =   f <$> pterm
      <|> h <$> pterm <*> symbol' '-' <*> pexp
    where f a = a
          g a b c = AddExp a c
-         h a b c = SubExp a c
+         h a b c = SubExp a Char
 
 pterm :: Parser Char Exp
 pterm =  f <$> pfactor

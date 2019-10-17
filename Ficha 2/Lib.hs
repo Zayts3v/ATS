@@ -1,11 +1,14 @@
 module Lib where 
 
-import Prelude hiding ((<*>),(<$>))
+import Prelude hiding ((<*>),(<$>),ident)
+import Data.Char
 
 infixl 2 <|>
 infixl 3 <*>
 
 type Parser s r = [s] -> [(r , [s])]
+
+ident =  oneOrMore (satisfy isAlpha)
 
 symbola :: Parser Char Char
 symbola [] = []

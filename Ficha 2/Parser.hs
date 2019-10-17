@@ -1,6 +1,8 @@
 module Parser where 
 
 import Data.Char
+import Data.String
+
 import Prelude hiding ((<*>),(<$>))
 import Lib
 
@@ -14,6 +16,11 @@ data It = Block Its
 
 instance Show It where
     show = showIt
+
+instance Show P where
+    show = showP
+
+showP (R its) = "[" ++ (printIts its) ++ "]"
 
 showIt (Block its) = "[" ++ (printIts its) ++ "]" 
 showIt (Decl s)    = "Decl " ++ s
@@ -30,47 +37,58 @@ printIts (h:t)
     | ((token "Use"  (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
     | otherwise             = "," ++ (printIts t)
 
-{-- 
-pp_P (R its) = "[" ++ pp_Its its ++ "]"
+instance Eq It where
+    Use  x == Use y = x == y
+    Decl x == Use y = x == y
 
-pp_Its [] = ""
-pp_Its [it] = pp_It it
-pp_Its (it:its) = pp_It it ++ " , " ++ pp_Its its
-
-pp_It (Decl n) = "Decl " ++ n
-pp_It (Use n) = "Use " ++ n
-pp_It (Block is) = "[" ++ pp_Its is ++ "]"
--}
-
--- Fazer com enclosedBy quando a solução estiver implementada na ficha anterior
 pMain :: Parser Char P
-pMain = f <$> (enclosedBy (symbol' '[') pBlock (symbol' ']'))
-    where f a = R a
+pMain = f <$> (symbol' '[') <*> pBlock <*> (symbol' ']') 
+    where f a b c = R b
 
 pBlock :: Parser Char Its
-pBlock =  f <$> token ""
-      <|> g <$> symbol' '[' <*> pBlock <*> symbol' ']'  
-      <|> h <$> token ""
-    where f a = []
-          g a b c = b
-          h a = []
+pBlock =  f <$> token " "
+      <|> g <$> pStatment                                                   <*> pBlock
+      <|> h <$> (separatedBy pStatment (token' " , "))                      <*> pBlock
+      <|> i <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
+      <|> j <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock   
+      <|> k <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
+      <|> l <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock
+    where f a       = []
+          g a b     = a:b
+          h a b     = a++b
+          i a b c d = b++d
+          j a b c d = b++d
+          k a b c d = b++d
+          l a b c d = b++d
 
 pStatment :: Parser Char It
-pStatment a = []
+pStatment =  f <$> pIt <*> ident
+        where f a b = if (a=="Use ")
+                      then Use b
+                      else Decl b
 
+pIt :: Parser Char [Char]
+pIt =  f <$> token' "Use "
+   <|> g <$> token' "Decl "
+    where f a = a
+          g a = a
 
 -- Lista de Use, Lista de Decl, Lista de Erros.
 -- Algumas delas vão dar reset no block, outras no statment
 
 {--______________________TESTING________________________-}
 
--- input = "[ Use "y" , Decl "x" , [ Decl "y" , Use "x" , Decl "y" ] , Use "x" ]"
+-- input = "[ Use y, Decl x, [ Decl y , Use x , Decl y ] , Use x ]"
 
 -- Output should be like this:
-    -- [Use "y",Decl "y"]
-
+    -- "[Use y,Decl y]"
 
 -- teste output
-use1 = Use "y"
-decl = Decl "x"
-lista = [use1, decl]
+usey = Use "y"
+decx = Decl "x"
+decy = Decl "y"
+usex = Use "x"
+listaSub = [decy, usex, decy]
+blockEx = Block listaSub
+lista = [usey, decx, blockEx, usex]
+output = R lista
