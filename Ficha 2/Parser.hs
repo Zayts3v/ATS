@@ -41,6 +41,7 @@ printIts :: Its -> String
 printIts [] = ""
 printIts (h:t) = (showIt h) ++ "," ++ (printIts t)
 
+-- Parser
 pMain :: Parser Char P
 pMain = f <$> (symbol' '[') <*> pBlock 1 <*> (symbol' ']')
     where f a b c = R (extract b)
@@ -71,26 +72,7 @@ pIt =  f <$> token' "Use "
     where f a = a
           g a = a
 
--- Lista de Use, Lista de Decl, Lista de Erros.
--- Algumas delas vão dar reset no block, outras no statment
-
-{--______________________TESTING________________________-}
-
--- input = "[ Use a , Decl a , [ Decl c , Use c , Decl c ] , Use b ]"
--- input = "[ Use y , Decl x , Decl x ]"
--- inputOfical = "[ Use y , Decl x , [ Decl y , Use x , Decl y ] , Use x ]"
-
--- Output should be like this:
-    -- "[Use y,Decl y]"
-
--- teste output
-usey = Use "y"
-decx = Decl "x"
-decy = Decl "y"
-usex = Use "x"
-
---
-
+-- Tratamento
 extract :: Outs -> Its
 extract []    = []
 extract lista = extractAux lista lista
@@ -98,7 +80,7 @@ extract lista = extractAux lista lista
 extractAux :: Outs -> Outs -> Its
 extractAux [] _ = []
 extractAux ((x,y):t) lista 
-    | (((take 3 (show x)) == "Use")  && (uses  x y lista))          = x:(extractAux t lista) 
+    | (((take 3 (show x)) == "Use")  && (uses  x y lista))          = x:(extractAux t lista)
     | (((take 4 (show x)) == "Decl") && ((decs x y lista 0) > 1))   = x:(extractAux (remove (x,y) t) lista)
     | otherwise                                                     = (extractAux t lista)
 
@@ -122,3 +104,14 @@ remove (a,b) ((x,y):t) =
     if ((a==x) && (b==y))
     then (remove (a,b) t)
     else (x,y):(remove (a,b) t)
+
+{--_____________________________________________FOR TEST________________________-}
+
+-- inputOfical = "[ Use y , Decl x , [ Decl y , Use x , Decl y ] , Use x ]"
+-- Output should be like this: "[Use y,Decl y]"
+
+-- teste de It
+usey = Use "y"
+decx = Decl "x"
+decy = Decl "y"
+usex = Use "x"
