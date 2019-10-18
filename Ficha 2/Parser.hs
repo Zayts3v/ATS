@@ -2,7 +2,9 @@ module Parser where
 
 import Data.Char
 import Data.String
+import Data.List
 import Lib
+import Analisador
 
 import Prelude hiding ((<*>),(<$>))
 
@@ -14,6 +16,10 @@ data It = Block Its
         | Decl String
         | Use String
 
+type Outs = [(It,Int)]
+
+type Out = (It,Int)
+
 instance Show P where
     show = showP
 
@@ -21,51 +27,43 @@ instance Show It where
     show = showIt
 
 instance Eq It where
-    Use  x == Use y = x == y
-    Decl x == Use y = x == y
+    Decl x == Use y  = (False == True)
+    Use  x == Decl y = (False == True)
+    Use  x == Use y  = (x == y)
+    Decl x == Decl y = (x == y)
 
-showP (R its) = "[" ++ (printIts its) ++ "]"
+showP (R its) = "[" ++ printIts its ++ "]"
 
-showIt (Block its) = "["     ++ (printIts its) ++ "]" 
 showIt (Decl s)    = "Decl " ++ s
 showIt (Use s)     = "Use "  ++ s
 
-printIts :: [It] -> String
-printIts []   = ""
-printIts (h:[])
-    | ((token "Decl" (show h)) == []) = (showIt h)
-    | ((token "Use"  (show h)) == []) = (showIt h)
-    | otherwise                       = ""
-printIts (h:t)
-    | ((token "Decl" (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
-    | ((token "Use"  (show h)) == []) = (showIt h) ++ "," ++ (printIts t)
-    | otherwise                       = "," ++ (printIts t)
+printIts :: Its -> String
+printIts [] = ""
+printIts (h:t) = (showIt h) ++ "," ++ (printIts t)
 
 pMain :: Parser Char P
-pMain = f <$> (symbol' '[') <*> pBlock <*> (symbol' ']')
-    where f a b c = R b
+pMain = f <$> (symbol' '[') <*> pBlock 1 <*> (symbol' ']')
+    where f a b c = R (extract b)
 
-pBlock :: Parser Char Its
-pBlock =  f <$> token " "
-      <|> g <$> pStatment                                                   <*> pBlock
-      <|> h <$> (separatedBy pStatment (token' " , "))                      <*> pBlock
-      <|> i <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
-      <|> j <$> (token' " [ ")   <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock
-      <|> k <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] ")   <*> pBlock
-      <|> l <$> (token' " , [ ") <*> (separatedBy pStatment (token' " , ")) <*> (token' " ] , ") <*> pBlock
-    where f a       = []
-          g a b     = a:b
-          h a b     = a++b
-          i a b c d = b++d
-          j a b c d = b++d
-          k a b c d = b++d
-          l a b c d = b++d
+pBlock :: Int -> Parser Char Outs
+pBlock nivel = l <$> succeed []
+            <|> n <$> (separatedBy (pStatment nivel) (token' " , "))                          <*> (pBlock (nivel+1))
+         -- <|> o <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] ")
+         -- <|> p <$> (token' " [ ")   <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] , ") <*> (pBlock (nivel-1))
+         -- <|> q <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] ")
+            <|> r <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] , ") <*> (pBlock (nivel-1))
+        where l a = a
+              n a b     = a++b
+           -- o a b c   = b
+           -- p a b c d = b++d
+           -- q a b c   = b
+              r a b c d = b++d
 
-pStatment :: Parser Char It
-pStatment =  f <$> pIt <*> ident
-        where f a b = if (a=="Use ")
-                      then Use b
-                      else Decl b
+pStatment :: Int -> Parser Char Out
+pStatment nivel =  f <$> pIt <*> ident
+            where f a b = if (a=="Use ")
+                          then (Use b, nivel)
+                          else (Decl b, nivel)
 
 pIt :: Parser Char [Char]
 pIt =  f <$> token' "Use "
@@ -78,7 +76,9 @@ pIt =  f <$> token' "Use "
 
 {--______________________TESTING________________________-}
 
--- input = "[ Use y, Decl x, [ Decl y , Use x , Decl y ] , Use x ]"
+-- input = "[ Use a , Decl a , [ Decl c , Use c , Decl c ] , Use b ]"
+-- input = "[ Use y , Decl x , Decl x ]"
+-- inputOfical = "[ Use y , Decl x , [ Decl y , Use x , Decl y ] , Use x ]"
 
 -- Output should be like this:
     -- "[Use y,Decl y]"
@@ -88,7 +88,37 @@ usey = Use "y"
 decx = Decl "x"
 decy = Decl "y"
 usex = Use "x"
-listaSub = [decy, usex, decy]
-blockEx = Block listaSub
-lista = [usey, decx, blockEx, usex]
-output = R lista
+
+--
+
+extract :: Outs -> Its
+extract []    = []
+extract lista = extractAux lista lista
+
+extractAux :: Outs -> Outs -> Its
+extractAux [] _ = []
+extractAux ((x,y):t) lista 
+    | (((take 3 (show x)) == "Use")  && (uses  x y lista))          = x:(extractAux t lista) 
+    | (((take 4 (show x)) == "Decl") && ((decs x y lista 0) > 1))   = x:(extractAux (remove (x,y) t) lista)
+    | otherwise                                                     = (extractAux t lista)
+
+uses :: It -> Int -> Outs -> Bool
+uses _ _ []            = True
+uses i nivel ((x,y):t) =
+    if ((nivel >= y) && ((take 4 (show x)) == "Decl") && ((drop 5 (show x))==(drop 4 (show i))))
+    then False
+    else (uses i nivel t)
+
+decs :: It -> Int -> Outs -> Int -> Int
+decs _ _ [] number            = number
+decs i nivel ((x,y):t) number =
+    if ((nivel == y) && ((take 4 (show x)) == "Decl") && ((drop 5 (show x))==(drop 5 (show i))))
+    then (decs i nivel t (number + 1))
+    else (decs i nivel t number)
+
+remove :: Out -> Outs -> Outs
+remove _ []            = []
+remove (a,b) ((x,y):t) =
+    if ((a==x) && (b==y))
+    then (remove (a,b) t)
+    else (x,y):(remove (a,b) t)
