@@ -62,7 +62,7 @@ zeroOrMore p = sf <$> p <*> zeroOrMore p
   where sf x xs = x : xs
 
 spaces = zeroOrMore 
-          (satisfy (\x -> x `elem` [' ','\t','\n']))
+          (satisfy (\x -> x `elem` [' ','\t', '\n']))
 
 symbol' a = (\ a b c -> b) <$> spaces <*> symbol a <*> spaces
 

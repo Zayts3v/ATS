@@ -4,7 +4,6 @@ import Data.Char
 import Data.String
 import Data.List
 import Lib
-import Analisador
 
 import Prelude hiding ((<*>),(<$>))
 
@@ -32,36 +31,37 @@ instance Eq It where
     Use  x == Use y  = (x == y)
     Decl x == Decl y = (x == y)
 
-showP (R its) = "[" ++ printIts its ++ "]"
+showP (R its)   = "[" ++ printIts its ++ "]"
 
-showIt (Decl s)    = "Decl " ++ s
-showIt (Use s)     = "Use "  ++ s
+showIt (Decl s) = "Decl " ++ s
+showIt (Use s)  = "Use "  ++ s
 
 printIts :: Its -> String
-printIts [] = ""
-printIts (h:t) = (showIt h) ++ "," ++ (printIts t)
+printIts []     = ""
+printIts (h:[]) = (showIt h) 
+printIts (h:t)  = (showIt h) ++ "," ++ (printIts t)
 
 -- Parser
 pMain :: Parser Char P
-pMain = f <$> (symbol' '[') <*> pBlock 1 <*> (symbol' ']')
+pMain =   f <$> (symbol' '[') <*> pBlock 1 <*> (symbol' ']')
     where f a b c = R (extract b)
 
 pBlock :: Int -> Parser Char Outs
-pBlock nivel = l <$> succeed []
-            <|> n <$> (separatedBy (pStatment nivel) (token' " , "))                          <*> (pBlock (nivel+1))
-         -- <|> o <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] ")
-         -- <|> p <$> (token' " [ ")   <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] , ") <*> (pBlock (nivel-1))
-         -- <|> q <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] ")
-            <|> r <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (token' " ] , ") <*> (pBlock (nivel-1))
-        where l a = a
-              n a b     = a++b
-           -- o a b c   = b
-           -- p a b c d = b++d
-           -- q a b c   = b
-              r a b c d = b++d
+pBlock nivel =  l <$> succeed []
+            <|> n <$> (separatedBy (pStatment nivel) (token' " , "))                      <*> (pBlock (nivel+1))
+            <|> o <$> (token' " [ ")   <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (pBlock (nivel+1)) <*> (token' " ] ")
+            <|> p <$> (token' " [ ")   <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (pBlock (nivel+1)) <*> (token' " ] , ") <*> (pBlock (nivel-1))
+            <|> q <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (pBlock (nivel+1)) <*> (token' " ] ")
+            <|> r <$> (token' " , [ ") <*> (separatedBy (pStatment nivel) (token' " , ")) <*> (pBlock (nivel+1)) <*> (token' " ] , ") <*> (pBlock (nivel-1))
+        where l a         = a
+              n a b       =  a++b
+              o a b c d   =  b++c
+              p a b c d e = (b++c) ++ e
+              q a b c d   =  b++c
+              r a b c d e = (b++c) ++ e
 
 pStatment :: Int -> Parser Char Out
-pStatment nivel =  f <$> pIt <*> ident
+pStatment nivel = f <$> pIt <*> ident
             where f a b = if (a=="Use ")
                           then (Use b, nivel)
                           else (Decl b, nivel)
@@ -107,8 +107,8 @@ remove (a,b) ((x,y):t) =
 
 {--_____________________________________________FOR TEST________________________-}
 
--- inputOfical = "[ Use y , Decl x , [ Decl y , Use x , Decl y ] , Use x ]"
--- Output should be like this: "[Use y,Decl y]"
+-- inputOfical = "[ Use y , Decl x , [ Decl y , Use x , [ Decl x , Use d ] , Decl y ] , Use x]"
+-- Output should be like this: "[Use y,Decl y,Use d]"
 
 -- teste de It
 usey = Use "y"
