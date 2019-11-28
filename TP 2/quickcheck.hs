@@ -106,3 +106,8 @@ genCarro =  do  k <- genTipo
 
 
 
+
+
+
+
+
