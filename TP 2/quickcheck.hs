@@ -175,5 +175,3 @@ genClassificar :: [ClassProp] -> Gen Classificar
 genClassificar lista = do a <- elements lista
                           b <- elements [0..300]
                           return (Classificar a b)
-
--- Funções auxiliares
