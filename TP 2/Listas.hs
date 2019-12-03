@@ -1,6 +1,8 @@
 module Listas (
     listaLocalidades,
-    listaPreferencias
+    listaPreferencias,
+    listaCarros,
+    listaNomes
 ) where
 
 listaLocalidades :: [String]
@@ -17,3 +19,34 @@ listaLocalidades = ["Agueda"  ,"Albufeira","Almeirim" ,"Baiao"   ,"Barreiro"   ,
 
 listaPreferencias :: [String]
 listaPreferencias = ["MaisBarato","MaisPerto"]
+
+listaCarros :: [String]
+listaCarros = ["Abarth"  ,"Aixam"    ,"Alfa Romeo"   ,"Alpine" ,"Bentley",
+               "Audi"    ,"Austin"   ,"Aston Martin" ,"Bellier","BMW"    ,
+               "Cadillac","Chevrolet","Chrysler"     ,"Citroën","Dacia"  ,
+               "Daewoo"  ,"Datsun"   ,"Dodge"        ,"DS"     ,"Ferrari",
+               "Fiat"    ,"Ford"     ,"Honda"        ,"Hummer" ,"Hyundai",
+               "Infiniti","Isuzu"    ,"Jaguar"       ,"Jeep"   ,"Kia"    ,
+               "MINI"    ,"Lancia"   ,"Land Rover"   ,"Lexus"  ,"Lotus"  ,
+               "Maserati","Mazda"    ,"Mercedes-Benz","McLaren","MG"     ,
+               "Microcar","VW"       ,"Lamborghini"  ,"Morgan" ,"Nissan" ,
+               "Opel"    ,"Peugeot"  ,"Pontiac"      ,"Porsche","Renault",
+               "Rover"   ,"Saab"     ,"Rolls Royce"  ,"SEAT"   ,"Skoda"  ,
+               "Smart"   ,"Subaru"   ,"Suzuki"       ,"Tesla"  ,"Toyota" ,
+               "Triumph" ,"Volvo"    ,"Mitsubishi"]
+
+listaNomes :: [String]
+listaNomes = ["Maria"   ,"Matilde" ,"Leonor","Beatriz"   ,"Mariana"  ,
+              "Carolina","Ana"     ,"Ines"  ,"Sofia"     ,"Margarida",
+              "Lara"    ,"Joana"   ,"Laura" ,"Francisca" ,"Diana"    ,
+              "Mafalda" ,"Madalena","Clara" ,"Luana"     ,"Sara"     ,
+              "Bianca"  ,"Alice"   ,"Rita"  ,"Eva"       ,"Gabriela" ,
+              "Camila"  ,"Yara"    ,"Mara"  ,"Benedita"  ,"Catarina" ,
+              "Ariana"  ,"Ema"     ,"Joao"  ,"Vitoria"   ,"Marta"    ,
+              "Carlota" ,"Rodrigo" ,"Martim","Francisco" ,"Santiago" ,
+              "Tomas"   ,"Afonso"  ,"Duarte","Guilherme" ,"Miguel"   ,
+              "Tiago"   ,"Goncalo" ,"Diogo" ,"Gabriel"   ,"Pedro"    ,
+              "Rafael"  ,"Salvador","Dinis" ,"Lucas"     ,"Simao"    ,
+              "Gustavo" ,"David"   ,"Jose"  ,"Vicente"   ,"Lourenço" ,
+              "Diego"   ,"Daniel"  ,"Andre" ,"Antonio"   ,"Vasco"    ,
+              "Leonardo","Henrique","Manuel","Bernardo"]
