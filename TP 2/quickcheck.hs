@@ -37,32 +37,22 @@ main = do output <- generate $ runGen (genLogs)
 -- State
 genLogs = fmap sort . replicateM 3300 $ do
     g <- lift $ frequency [(288,return genProprietario),(350,return genCliente),(2000,return genCarro),
-                         (461,return genAluguer),(201,return genClassificar)] :: StGen (StGen String)
+                           (461,return genAluguer),(201,return genClassificar)] :: StGen (StGen String)
     g
 
 type StGen a = StateT GenState Gen a
 
 data GenState
     = GenState
-    { proprietarios    :: [String]
-      , clientes       :: [String]
-      , nifClientes    :: [String]
-      , carros         :: [String]
-      , alugueres      :: [String]
-      , classificacoes :: [String]
-      , classprop      :: [String]
+    { nifClientes :: [String]
+      , classprop :: [String]
     } deriving Show
 
 defaultState :: GenState
 defaultState
     = GenState
-    { proprietarios    = []
-      , clientes       = []
-      , nifClientes    = []
-      , carros         = []
-      , alugueres      = []
-      , classificacoes = []
-      , classprop      = []
+    { nifClientes = []
+      , classprop = []
     }
 
 runGen :: StGen a -> Gen a
