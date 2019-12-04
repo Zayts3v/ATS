@@ -31,8 +31,19 @@ type Nota        = Int
 
 -- Main
 main :: IO ()
-main = do output <- generate $ runGen (genLogs)
-          putStr $ unlines $ filter (/="") output
+main = do putStrLn "Give me a file to print the output"
+          file    <- getLine 
+          initial <- generate $ genInitial
+          writeFile file $ unlines $ filter (/="") initial     
+          content <- readFile file
+          let strings = lines content
+          let nifC    = (drop 2 (take 3 strings))
+          let nifP    = (drop 3 strings)
+          output  <- generate $ runGen (genLogs) nifC nifP
+          putStrLn "Give me a file to print the output"
+          file2   <- getLine
+          let output2 = ((take 1 strings) ++ (take 1 (drop 1strings)))
+          writeFile file2 $ unlines $ filter (/="") (output ++ output2)
 
 -- State
 genLogs = fmap sort . replicateM 3300 $ do
@@ -57,10 +68,27 @@ defaultState
       , classprop = []
     }
 
-runGen :: StGen a -> Gen a
-runGen g = evalStateT g defaultState
+runGen :: StGen a -> [String] -> [String] -> Gen a
+runGen g nifC nifP = evalStateT g defaultState { nifClientes = nifC , nifProp = nifP }
 
 -- Gens
+genInitial :: Gen [String]
+genInitial = do nomeC   <- elements listaNomes
+                nifC    <- genNif []
+                l1C     <- choose (0::Int, 999999999)
+                emailC  <- return (show(l1C)++"@gmail.com")
+                moradaC <- elements listaLocalidades
+                xC      <- genX
+                yC      <- genY
+                nomeP   <- elements listaNomes
+                nifP    <- genNif [show(nifC)]
+                l1P     <- choose (0::Int, 999999999)
+                emailP  <- return (show(l1P)++"@gmail.com")
+                moradaP <- elements listaLocalidades
+                let cliente      = ("Cliente:" ++ nomeC ++ "," ++ show(nifC) ++ "," ++ emailC ++ "," ++ moradaC ++ "," ++ show(xC) ++ "," ++ show(yC))
+                let proprietario = ("Proprietario:" ++ nomeP ++ "," ++ show(nifP) ++ "," ++ emailP ++ "," ++ moradaP)
+                return ([cliente]++[proprietario]++[show(nifC)]++[show(nifP)])
+
 genTipo :: Gen Tipo
 genTipo = frequency [(42091,return Gasolina),(1217,return Hibrido),(472,return Electrico)]
 
