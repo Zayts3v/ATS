@@ -42,7 +42,9 @@ main = do putStrLn "Give me a file to print the output"
           output  <- generate $ runGen (genLogs) nifC nifP
           putStrLn "Give me a file to print the output"
           file2   <- getLine
-          let output2 = ((take 1 strings) ++ (take 1 (drop 1strings)))
+          let cliente = (take 1 strings)
+          let prop    = (take 1 (drop 1 strings))
+          let output2 = (cliente ++ prop)
           writeFile file2 $ unlines $ filter (/="") (output ++ output2)
 
 -- State
