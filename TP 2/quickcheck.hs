@@ -64,6 +64,29 @@ runGen g = evalStateT g defaultState
 genTipo :: Gen Tipo
 genTipo = frequency [(42091,return Gasolina),(1217,return Hibrido),(472,return Electrico)]
 
+genMarca :: Gen String
+genMarca = frequency [(84  ,return "Abarth")  ,(15  ,return "Aixam")   ,(376 ,return "Alfa Romeo"),
+                      (3   ,return "Alpine")  ,(32,return "Bentley")   ,(2470,return "Audi"),
+                      (4   ,return "Austin")  ,(2   ,return "Bellier") ,(19  ,return "Aston Martin"),
+                      (5033,return "BMW")     ,(9   ,return "Cadillac"),(169 ,return "Chevrolet"),
+                      (43  ,return "Chrysler"),(1728,return "Citroën") ,(150 ,return "Dacia"),
+                      (9   ,return "Daewoo")  ,(10  ,return "Datsun")  ,(38  ,return "Dodge"),
+                      (116 ,return "DS")      ,(60  ,return "Ferrari") ,(1949,return "Fiat"),
+                      (1686,return "Ford")    ,(310 ,return "Honda")   ,(12  ,return "Hummer"),
+                      (390 ,return "Hyundai") ,(7   ,return "Infiniti"),(4   ,return "Isuzu"),
+                      (264 ,return "Jaguar")  ,(172 ,return "Jeep")    ,(337 ,return "Kia"),
+                      (1069,return "MINI")    ,(68  ,return "Lancia")  ,(324 ,return "Land Rover"),
+                      (153 ,return "Lexus")   ,(9   ,return "Lotus")   ,(38  ,return "Maserati"),
+                      (392 ,return "Mazda")   ,(2   ,return "McLaren") ,(4837,return "Mercedes-Benz"),
+                      (18  ,return "MG")      ,(7   ,return "Microcar"),(11  ,return "Lamborghini"),
+                      (2919,return "VW")      ,(3   ,return "Morgan")  ,(1357,return "Nissan"),
+                      (2049,return "Opel")    ,(3492,return "Peugeot") ,(2   ,return "Pontiac"),
+                      (637 ,return "Porsche") ,(4874,return "Renault") ,(3   ,return "Rolls Royce"),
+                      (14  ,return "Rover")   ,(24  ,return "Saab")    ,(1842,return "SEAT"),
+                      (466 ,return "Skoda")   ,(691 ,return "Smart")   ,(24  ,return "Subaru"),
+                      (83 ,return "Suzuki")   ,(47  ,return "Tesla")   ,(1130,return "Toyota"),
+                      (5 ,return "Triumph")   ,(1316,return "Volvo")   ,(390 ,return "Mitsubishi")]
+
 genMatricula :: Gen Matricula
 genMatricula = do l1 <- elements ['A'..'Z']
                   l2 <- elements ['A'..'Z']
@@ -103,7 +126,7 @@ genNota = elements [0..100]
 -- StateGens
 genCarro :: StGen String
 genCarro =  do  tipo      <- lift $ genTipo
-                marca     <- lift $ elements listaCarros
+                marca     <- lift $ genMarca
                 matricula <- lift $ genMatricula
                 modify (\ state -> state { classprop = matricula:classprop state})
                 lista     <- gets nifProp
