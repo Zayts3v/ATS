@@ -7,7 +7,7 @@ import Control.Monad.State
 
 {--
     Carro:        tipo,marca,matricula,nif,velocidade media,preço por km, consumo por km, autonomia, X, Y
-    Proprietario: nome, nif, email,morada
+    Proprietario: nome,nif,email,morada
     Cliente:      nome,nif,email,morada,X,Y
     Aluguer:      nif cliente, X destino, Y destino, tipoCombustivel , preferencia
     Classificar:  matricula ou nif (cliente ou prop) , nota (0-100)
@@ -45,6 +45,7 @@ type StGen a = StateT GenState Gen a
 data GenState
     = GenState
     { nifClientes :: [String]
+      , nifProp   :: [String]
       , classprop :: [String]
     } deriving Show
 
@@ -52,6 +53,7 @@ defaultState :: GenState
 defaultState
     = GenState
     { nifClientes = []
+      , nifProp   = []
       , classprop = []
     }
 
@@ -71,8 +73,11 @@ genMatricula = do l1 <- elements ['A'..'Z']
                   n4 <- elements ['0'..'9']
                   return ((l1:l2:"-") ++ (n1:n2:"-") ++ (n3:n4:""))
 
-genNif :: Gen NIF
-genNif = choose (000000000::Int,999999999)
+genNif :: [String] -> Gen NIF
+genNif lista = do nif <- choose (000000000::Int,999999999)
+                  if (elem (show(nif)) lista)
+                  then genNif lista
+                  else return nif
 
 genVelMedia :: Gen VelMedia
 genVelMedia = choose (10::Int, 300)
@@ -101,7 +106,8 @@ genCarro =  do  tipo      <- lift $ genTipo
                 marca     <- lift $ elements listaCarros
                 matricula <- lift $ genMatricula
                 modify (\ state -> state { classprop = matricula:classprop state})
-                nif       <- lift $ genNif
+                lista     <- gets nifProp
+                nif       <- lift $ genNif lista
                 velMedia  <- lift $ genVelMedia
                 ppkm      <- lift $ genPPKm
                 cpkm      <- lift $ genCPKm
@@ -115,24 +121,27 @@ genCarro =  do  tipo      <- lift $ genTipo
 
 genCliente :: StGen String
 genCliente = do nome   <- lift $ elements listaNomes
-                nif    <- lift $ genNif
+                lista  <- gets nifClientes
+                nif    <- lift $ genNif lista
+                modify (\ state -> state { nifClientes = show(nif):nifClientes state})
+                modify (\ state -> state { classprop = show(nif):classprop state})
                 l1     <- lift $ choose (0::Int, 999999999)
                 email  <- lift $ return (show(l1)++"@gmail.com")
                 morada <- lift $ elements listaLocalidades
                 x      <- lift $ genX
                 y      <- lift $ genY
-                modify (\ state -> state { nifClientes = show(nif):nifClientes state})
-                modify (\ state -> state { classprop = show(nif):classprop state})
                 return $ ("Cliente:" ++ nome ++ "," ++ show(nif) ++ "," ++ email ++
                          "," ++ morada ++ "," ++ show(x) ++ "," ++ show(y))
 
 genProprietario :: StGen String
 genProprietario = do nome   <- lift $ elements listaNomes
-                     nif    <- lift $ genNif
+                     lista  <- gets nifProp
+                     nif    <- lift $ genNif lista
+                     modify (\ state -> state { nifProp = show(nif):nifProp state})
+                     modify (\ state -> state { classprop = show(nif):classprop state})
                      l1     <- lift $ choose (0::Int, 999999999) 
                      email  <- lift $ return (show(l1)++"@gmail.com")
                      morada <- lift $ elements listaLocalidades
-                     modify (\ state -> state { classprop = show(nif):classprop state})
                      return $ ("Proprietario:" ++ nome ++ "," ++ show(nif) ++
                                 "," ++ email ++ "," ++ morada)
 

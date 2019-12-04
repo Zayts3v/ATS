@@ -47,6 +47,6 @@ listaNomes = ["Maria"   ,"Matilde" ,"Leonor","Beatriz"   ,"Mariana"  ,
               "Tomas"   ,"Afonso"  ,"Duarte","Guilherme" ,"Miguel"   ,
               "Tiago"   ,"Goncalo" ,"Diogo" ,"Gabriel"   ,"Pedro"    ,
               "Rafael"  ,"Salvador","Dinis" ,"Lucas"     ,"Simao"    ,
-              "Gustavo" ,"David"   ,"Jose"  ,"Vicente"   ,"Lourenço" ,
+              "Gustavo" ,"David"   ,"Jose"  ,"Vicente"   ,"Lourenco" ,
               "Diego"   ,"Daniel"  ,"Andre" ,"Antonio"   ,"Vasco"    ,
               "Leonardo","Henrique","Manuel","Bernardo"]
