@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import java.io.Serializable;
 
@@ -12,20 +12,14 @@ public class Point implements Serializable {
         this.y = y;
     }
 
-    private Double getX() {
-        return this.x;
+    public Point(Point clone){
+        this.x = clone.x;
+        this.y = clone.y;
     }
 
-    private Double getY() {
-        return y;
-    }
-
-    public Point clone() {
-        return new Point(this.x, this.y);
-    }
 
     public double distanceBetweenPoints(Point a) {
-         return Math.sqrt(Math.pow(a.x - this.x, 2) + Math.pow(a.y - this.y, 2));
+        return Math.sqrt(Math.pow(a.x - this.x, 2) + Math.pow(a.y - this.y, 2));
     }
 
     @Override

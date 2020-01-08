@@ -1,9 +1,10 @@
-package Model;
+package model;
 
-import Utils.Point;
-import Utils.StringBetter;
+import utils.Point;
+import utils.StringBetter;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +19,7 @@ public class Rental implements Serializable {
     private final LocalDateTime date;
     private final double expectedTime;
     private double realTime;
-
+    private static final String DECIMALS = "%.2f";
     Rental(Car car, Client client, Point dest) {
         this.client = client;
         this.car = car;
@@ -61,7 +62,7 @@ public class Rental implements Serializable {
         return this.car.getOwnerID();
     }
 
-    void rent() {
+    void rent() throws NoSuchAlgorithmException {
         double weather = new Weather().getSeasonDelay();
         double traffic = new Traffic().getTraficDelay(weather);
         double delay = (weather % 0.5) + (traffic % 0.5);
@@ -87,7 +88,7 @@ public class Rental implements Serializable {
         str.append(this.car.getNumberPlate()).append("\n");
         str.append(this.client.getEmail()).append("\n");
         str.append(this.start).append("\n").append(this.end).append("\n");
-        str.append(String.format("%.2f", this.realPrice));
+        str.append(String.format(DECIMALS, this.realPrice));
         return str.toString();
     }
 
@@ -97,7 +98,7 @@ public class Rental implements Serializable {
         str.append(this.car.getNumberPlate()).append("\n");
         str.append(this.car.getOwnerID()).append("\n");
         str.append(this.start).append("\n").append(this.end).append("\n");
-        str.append(String.format("%.2f", this.realPrice));
+        str.append(String.format(DECIMALS, this.realPrice));
         return str.toString();
     }
 
@@ -107,9 +108,9 @@ public class Rental implements Serializable {
         str.append(this.car.getNumberPlate()).append("\n");
         str.append(this.start).append("\n");
         str.append(this.end).append("\n");
-        str.append(String.format("%.2f", this.client.getPos().distanceBetweenPoints(this.start)/4)).append("\n");
-        str.append(String.format("%.2f", this.expectedTime)).append("\n");
-        str.append(String.format("%.2f", this.expectedPrice)).append("\n");
+        str.append(String.format(DECIMALS, this.client.getPos().distanceBetweenPoints(this.start)/4)).append("\n");
+        str.append(String.format(DECIMALS, this.expectedTime)).append("\n");
+        str.append(String.format(DECIMALS, this.expectedPrice)).append("\n");
         str.append(this.client.getRates());
         return str.toString();
     }
@@ -123,17 +124,17 @@ public class Rental implements Serializable {
         str.append("Viagem:         ").append(this.start).append(" -> ").append(this.end).append("\n");
         str.append("Tempo a pé      ").append(
                 String.format(
-                        "%.2f Horas",
+                        DECIMALS,
                         this.client.getPos().distanceBetweenPoints(this.start)/4)).append("\n");
-        str.append("Tempo Estimado: ").append(String.format("%.2f Horas", this.expectedTime)).append("\n");
-        str.append("Custo Estimado: ").append(String.format("%.2f", this.expectedPrice));
+        str.append("Tempo Estimado: ").append(String.format(DECIMALS, this.expectedTime)).append("\n");
+        str.append("Custo Estimado: ").append(String.format(DECIMALS, this.expectedPrice));
         return str.toString();
     }
 
     public String toFinalString() {
         StringBuilder str = new StringBuilder();
-        str.append("Tempo Total: ").append(String.format("%.2f Horas", this.realTime)).append("\n");
-        str.append("Custo Total: ").append(String.format("%.2f", this.realPrice)).append("\n\n");
+        str.append("Tempo Total: ").append(String.format(DECIMALS, this.realTime)).append("\n");
+        str.append("Custo Total: ").append(String.format(DECIMALS, this.realPrice)).append("\n\n");
         str.append(new StringBetter(this.car.warnings()).under());
         return str.toString();
     }
@@ -154,5 +155,10 @@ public class Rental implements Serializable {
                 && this.start.equals(rental.start)
                 && this.end.equals(rental.end)
                 && this.date.equals(rental.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

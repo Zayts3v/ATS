@@ -1,17 +1,22 @@
-package Model;
+package model;
 
-import Exceptions.*;
-import Utils.Point;
+import exceptions.*;
+import utils.Point;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Parser {
+
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
+
     private List<String> file;
 
     public Parser() {
@@ -29,7 +34,7 @@ public class Parser {
                     .map(e -> this.parseLine(e, model))
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning(e.toString());
         }
     }
 
@@ -85,23 +90,15 @@ public class Parser {
                 case "Aluguer":
                     if (content.length != 5)
                         break;
-                    try {
-                        model.rental(new StringBuilder()
-                                        .append(content[0])
-                                        .append("@gmail.com")
-                                        .toString(),
-                                new Point(Double.parseDouble(content[1])
-                                        , Double.parseDouble(content[2])),
-                                content[4], Car
-                                        .CarType
-                                        .fromString(content[3]));
-                    } catch (NoCarAvaliableException ignored) {
-                    }
+                    aluguer(model, content);
                     break;
                 case "Classificar":
                     if (content.length != 2)
                         break;
                     model.rate(content[0], Integer.parseInt(content[1]));
+                    break;
+                default:
+                    logger.warning("Categoria Inválida");
                     break;
             }
         }
@@ -110,8 +107,26 @@ public class Parser {
                 | CarExistsException
                 | UnknownCarTypeException
                 | UnknownCompareTypeException
-                | InvalidCarException ignored) {}
+                | InvalidCarException ignored) {
+            logger.warning(ignored.toString());
+        }
         return l;
+    }
+
+    private void aluguer(UMCarroJa model, String[] content) throws UnknownCompareTypeException, InvalidUserException, UnknownCarTypeException {
+        try {
+            model.rental(new StringBuilder()
+                            .append(content[0])
+                            .append("@gmail.com")
+                            .toString(),
+                    new Point(Double.parseDouble(content[1])
+                            , Double.parseDouble(content[2])),
+                    content[4], Car
+                            .CarType
+                            .fromString(content[3]));
+        } catch (NoCarAvaliableException | NoSuchAlgorithmException ignored) {
+            logger.warning(ignored.toString());
+        }
     }
 
     @Override
@@ -122,5 +137,10 @@ public class Parser {
 
         Parser parser = (Parser) o;
         return this.file.equals(parser.file);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

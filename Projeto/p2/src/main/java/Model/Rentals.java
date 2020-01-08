@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ class Rentals implements Serializable {
     private static final long serialVersionUID = 1526373866446179937L;
     private final List<Rental> rentalBase;
 
-    static private int id;
+    private int id;
 
     Rentals() {
         this.rentalBase = new ArrayList<>();
@@ -117,5 +117,10 @@ class Rentals implements Serializable {
 
         Rentals rentals = (Rentals) o;
         return this.rentalBase.equals(rentals.rentalBase);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

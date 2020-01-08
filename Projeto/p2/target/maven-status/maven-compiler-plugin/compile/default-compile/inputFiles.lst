@@ -1,41 +1,41 @@
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\UserExistsException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\RateOwnerCar.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\NoCarAvaliableException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Weather.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Client.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidNumberOfArgumentsException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Owner.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\SpecificCar.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Parser.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\NewLogin.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Traffic.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidTimeIntervalException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ITable.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidRatingException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Rental.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\UMCarroJa.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidCarException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\WrongPasswordExecption.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Utils\StringBetter.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\RegisterCar.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\User.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Main.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Car.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidNewRegisterException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\UnknownCarTypeException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\Table.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidNewRentalException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Rentals.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\UnknownCompareTypeException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\CheapestNearCar.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Utils\Point.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\AutonomyCar.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\RegisterUser.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\TimeInterval.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Controller\Controller.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\InvalidUserException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Exceptions\CarExistsException.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Cars.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\ViewModel\RentCarSimple.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\Model\Users.java
-D:\Tiago Pinheiro\UMinho\4º Ano\ATS\Trabalhos Práticos\ATS\Projeto\p2\src\main\java\View\Menu.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidTimeIntervalException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidNumberOfArgumentsException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Parser.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\UserExistsException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\Menu.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\SpecificCar.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Rentals.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidNewRentalException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\RegisterUser.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\AutonomyCar.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\NoCarAvaliableException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidNewRegisterException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\UnknownCarTypeException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\User.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\utils\Point.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Client.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\utils\StringBetter.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\RateOwnerCar.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\Main.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\ITable.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Cars.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidCarException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\CheapestNearCar.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidUserException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\CarExistsException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Weather.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Traffic.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Users.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\controller\Controller.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\UnknownCompareTypeException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\NewLogin.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\RegisterCar.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Car.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\Table.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\InvalidRatingException.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\TimeInterval.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Rental.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\view\viewmodel\RentCarSimple.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\exceptions\WrongPasswordExecption.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\Owner.java
+C:\Users\jocos\Desktop\ATS2019-master\ATS2019-master\Projeto\V4-NoSmells\demo1-no-smells\src\main\java\model\UMCarroJa.java

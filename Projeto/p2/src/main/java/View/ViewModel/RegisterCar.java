@@ -1,8 +1,8 @@
-package View.ViewModel;
+package view.viewmodel;
 
-import Exceptions.InvalidNewRegisterException;
-import Model.Car;
-import Utils.Point;
+import exceptions.InvalidNewRegisterException;
+import model.Car;
+import utils.Point;
 
 public class RegisterCar {
     private final String numberPlate;

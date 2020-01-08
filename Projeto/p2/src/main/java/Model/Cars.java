@@ -1,10 +1,10 @@
-package Model;
+package model;
 
-import Exceptions.CarExistsException;
-import Exceptions.InvalidCarException;
-import Exceptions.NoCarAvaliableException;
-import Exceptions.UnknownCompareTypeException;
-import Utils.Point;
+import exceptions.CarExistsException;
+import exceptions.InvalidCarException;
+import exceptions.NoCarAvaliableException;
+import exceptions.UnknownCompareTypeException;
+import utils.Point;
 
 import java.io.Serializable;
 import java.util.*;
@@ -18,12 +18,12 @@ public class Cars implements Serializable {
         this.carBase = new HashMap<>();
     }
 
-    private Cars(Cars c) {
+    public Cars(Cars c) {
         this.carBase = c.carBase
                 .values()
                 .stream()
                 .collect(Collectors
-                        .toMap(Car::getNumberPlate, Car::clone));
+                        .toMap(Car::getNumberPlate, Car::new));
     }
 
     /**
@@ -50,25 +50,17 @@ public class Cars implements Serializable {
     }
 
     /**
-     * Clona um objeto da classe Model.Cars
-     * @return Clone do objeto
-     */
-    public Cars clone() {
-        return new Cars(this);
-    }
-
-    /**
      * Obtem a lista de todos os carros no sistema
      * de um determinado tipo
      * @param b Tipo a procurar
      * @return Lista dos carros
      */
-    public ArrayList<Car> listOfCarType(Car.CarType b) {
+    public List<Car> listOfCarType(Car.CarType b) {
         return this.carBase
                 .values()
                 .stream()
-                .filter((e)-> e.getType().equals(b))
-                .map(Car::clone)
+                .filter(e -> e.getType().igual(b))
+                .map(Car::new)
                 .collect(Collectors
                         .toCollection(ArrayList::new));
     }
@@ -79,7 +71,7 @@ public class Cars implements Serializable {
                 return this.carBase
                         .values()
                         .stream()
-                        .filter(e -> e.getType().equals(a)
+                        .filter(e -> e.getType().igual(a)
                                 && e.hasRange(dest)
                                 && e.isAvailable())
                         .sorted(Comparator.comparingDouble(e ->
@@ -93,7 +85,7 @@ public class Cars implements Serializable {
                 return this.carBase
                         .values()
                         .stream()
-                        .filter(e -> e.getType().equals(a)
+                        .filter(e -> e.getType().igual(a)
                                 && e.hasRange(dest)
                                 && e.getPosition().distanceBetweenPoints(dest) != 0
                                 && e.isAvailable())
@@ -114,7 +106,7 @@ public class Cars implements Serializable {
             return this.carBase
                     .values()
                     .stream()
-                    .filter(e -> e.getType().equals(a)
+                    .filter(e -> e.getType().igual(a)
                             && e.hasRange(dest)
                             && origin.distanceBetweenPoints(e.getPosition()) <= range
                             && e.isAvailable())
@@ -137,12 +129,17 @@ public class Cars implements Serializable {
         return this.carBase.equals(cars.carBase);
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     Car getCar(Point dest, double range, Car.CarType a) throws NoCarAvaliableException {
         try {
             return this.carBase
                     .values()
                     .stream()
-                    .filter(e -> e.getType().equals(a)
+                    .filter(e -> e.getType().igual(a)
                             && e.hasRange(dest)
                             && e.getRange() >= range
                             && e.isAvailable())

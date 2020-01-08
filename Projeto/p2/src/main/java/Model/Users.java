@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Exceptions.InvalidUserException;
-import Exceptions.UserExistsException;
+import exceptions.InvalidUserException;
+import exceptions.UserExistsException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ class Users implements Serializable {
     }
 
     void addUser(User u) throws UserExistsException {
-        if(this.userBase.putIfAbsent(u.getEmail(), u.clone()) != null)
+        if(this.userBase.putIfAbsent(u.getEmail(), u) != null)
             throw new UserExistsException();
     }
 
@@ -43,5 +43,10 @@ class Users implements Serializable {
 
         Users users = (Users) o;
         return this.userBase.equals(users.userBase);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

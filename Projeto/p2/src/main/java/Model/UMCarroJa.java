@@ -1,9 +1,10 @@
-package Model;
+package model;
 
-import Exceptions.*;
-import Utils.Point;
+import exceptions.*;
+import utils.Point;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.AbstractMap;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UMCarroJa implements Serializable {
+
     private static final long serialVersionUID = 8905150170424120902L;
     private final Cars cars;
     private final Users users;
@@ -32,7 +34,7 @@ public class UMCarroJa implements Serializable {
                 .stream()
                 .collect(Collectors
                         .toMap(Function.identity(),
-                                (e) -> rentals.getRentalListClient(e)
+                                 e -> rentals.getRentalListClient(e)
                                         .stream()
                                         .map(Rental::getDistance)
                                         .reduce(0.0, Double::sum)))
@@ -104,7 +106,7 @@ public class UMCarroJa implements Serializable {
 
 
     void rental(String username, Point dest, String preference, Car.CarType a)
-            throws UnknownCompareTypeException, NoCarAvaliableException, InvalidUserException {
+            throws UnknownCompareTypeException, NoCarAvaliableException, InvalidUserException, NoSuchAlgorithmException {
         Client c = (Client) users.getUser(username);
         Car car = cars.getCar(preference, dest, c.getPos(), a);
         Rental r = new Rental(car, c, dest);
@@ -148,7 +150,7 @@ public class UMCarroJa implements Serializable {
         return r;
     }
 
-    public void rent(Rental r) {
+    public void rent(Rental r) throws NoSuchAlgorithmException {
         rentals.addRental(r);
         r.rent();
     }
@@ -158,7 +160,7 @@ public class UMCarroJa implements Serializable {
     }
 
     public void addUser(User a) throws UserExistsException {
-        this.users.addUser(a.clone());
+        this.users.addUser(a);
     }
 
     public void refil(Owner ownerCar, int index) {

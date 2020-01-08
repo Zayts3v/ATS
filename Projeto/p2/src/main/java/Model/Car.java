@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Exceptions.UnknownCarTypeException;
-import Utils.Point;
+import exceptions.UnknownCarTypeException;
+import utils.Point;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,45 +28,46 @@ public class Car implements Serializable {
 
     private final List<Rental> historic;
 
-    private Car(Car car) {
-        this.numberPlate = car.getNumberPlate();
-        this.owner = car.getOwner();
-        this.brand = car.getBrand();
-        this.type = car.getType();
-        this.avgSpeed = car.getAvgSpeed();
-        this.basePrice = car.getBasePrice();
-        this.gasMileage = car.getGasMileage();
-        this.position = car.getPosition();
-        this.fullTankRange = car.getFullTankRange();
-        this.range = car.getRange();
-        this.rating = car.getRating();
-        this.nRatings = car.getNRatings();
-        this.isAvailable = car.isAvailable();
+    public Car(Car car) {
+        this.numberPlate = car.numberPlate;
+        this.owner = car.owner;
+        this.brand = car.brand;
+        this.type = car.type;
+        this.avgSpeed = car.avgSpeed;
+        this.basePrice = car.basePrice;
+        this.gasMileage = car.gasMileage;
+        this.position = car.position;
+        this.fullTankRange = car.fullTankRange;
+        this.range = car.range;
+        this.rating = car.rating;
+        this.nRatings = car.nRatings;
+        this.isAvailable = car.isAvailable;
         this.historic = new ArrayList<>(car.historic);
     }
 
     public enum CarType {
-        electric,
-        gas,
-        hybrid,
-        any;
+        ANY,
+        ELECTRIC,
+        GAS,
+        HYBRID;
 
-        public boolean equals(CarType a) {
-            return a == this || a == any;
+        public boolean igual(CarType a) {
+            return a == this || a == ANY;
         }
 
         public static CarType fromString(String s) throws UnknownCarTypeException {
             switch (s) {
                 case "Electrico":
-                    return CarType.electric;
+                    return CarType.ELECTRIC;
                 case "Gasolina":
-                    return CarType.gas;
+                    return CarType.GAS;
                 case "Hibrido":
-                    return CarType.hybrid;
+                    return CarType.HYBRID;
                 case "Todos":
-                    return CarType.any;
-                }
-            throw new UnknownCarTypeException();
+                    return CarType.ANY;
+                default:
+                    throw new UnknownCarTypeException();
+            }
         }
     }
 
@@ -78,10 +79,6 @@ public class Car implements Serializable {
 
     void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
-    }
-
-    private Owner getOwner() {
-        return this.owner;
     }
 
     String getOwnerID() {
@@ -98,10 +95,6 @@ public class Car implements Serializable {
 
     double getBasePrice() {
         return this.basePrice;
-    }
-
-    private double getGasMileage() {
-        return this.gasMileage;
     }
 
     private int getRating() {
@@ -124,20 +117,13 @@ public class Car implements Serializable {
         return this.numberPlate;
     }
 
-    private int getNRatings() {
-        return this.nRatings;
-    }
-
-    private String getBrand() {
-        return this.brand;
-    }
-
     boolean isAvailable() {
         return this.isAvailable;
     }
 
+    @GetRequest
     Car(String numberPlate, Owner owner, CarType type,
-            double avgSpeed, double basePrice, double gasMileage, int range, Point pos, String brand) {
+        double avgSpeed, double basePrice, double gasMileage, int range, Point pos, String brand) {
         this.numberPlate = numberPlate;
         this.owner = owner;
         this.type = type;
@@ -164,7 +150,7 @@ public class Car implements Serializable {
 
     boolean hasRange(Point dest) {
         if(this.range / this.getFullTankRange() < 0.1) return false;
-        return !(this.position.distanceBetweenPoints(dest) * 1.2 > this.range);
+        return (this.position.distanceBetweenPoints(dest) * 1.2 <= this.range);
     }
 
     void rate(int rating) {
@@ -184,10 +170,6 @@ public class Car implements Serializable {
     void approvePendingRental(Rental r) {
         this.owner.accept(r);
         this.historic.add(r);
-    }
-
-    public Car clone() {
-        return new Car(this);
     }
 
     public String warnings() {
@@ -218,6 +200,11 @@ public class Car implements Serializable {
                 && this.type == car.type
                 && this.position.equals(car.position)
                 && this.historic.equals(car.historic);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override

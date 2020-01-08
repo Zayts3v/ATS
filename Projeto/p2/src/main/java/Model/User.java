@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.Serializable;
 
@@ -30,7 +30,7 @@ public abstract class User implements Serializable {
         this.passwd = u.getPasswd();
         this.rating = u.getRating();
         this.nRatings = u.getNRatings();
-   }
+    }
 
     private int getNRatings() {
         return this.nRatings;
@@ -69,8 +69,6 @@ public abstract class User implements Serializable {
         this.rating += rating;
     }
 
-    public abstract User clone();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,5 +83,10 @@ public abstract class User implements Serializable {
                 && this.passwd.equals(user.passwd)
                 && this.name.equals(user.name)
                 && this.address.equals(user.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

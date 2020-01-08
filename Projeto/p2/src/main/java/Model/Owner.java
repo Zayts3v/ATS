@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Owner extends User {
         this.historic = new ArrayList<>();
     }
 
-    private Owner(User u) {
+    public Owner(User u) {
         super(u);
         if (u instanceof Owner) {
             Owner o = (Owner) u;
@@ -27,7 +27,7 @@ public class Owner extends User {
         }
     }
 
-    public ArrayList<Rental> getPending() {
+    public List<Rental> getPending() {
         return new ArrayList<>(this.pending);
     }
 
@@ -62,10 +62,6 @@ public class Owner extends User {
         return new ArrayList<>(this.cars);
     }
 
-    public Owner clone() {
-        return new Owner(this);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,6 +72,11 @@ public class Owner extends User {
         return this.cars.equals(owner.cars)
                 && this.pending.equals(owner.pending)
                 && this.historic.equals(owner.historic);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
 

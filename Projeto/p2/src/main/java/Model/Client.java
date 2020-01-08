@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Utils.Point;
+import utils.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +16,14 @@ public class Client extends User {
         this.pendingRates = new ArrayList<>();
     }
 
-    Point getPos() {
-        return this.pos.clone();
+    public Client(Client clone) {
+        super(clone);
+        this.pos = clone.pos;
+        this.pendingRates = new ArrayList<>(clone.pendingRates);
     }
 
-    private Client(Client u) {
-        super(u);
-        this.pos = u.getPos().clone();
-        this.pendingRates = new ArrayList<>(u.pendingRates);
+    Point getPos() {
+        return new Point(this.pos);
     }
 
     void addPendingRental(Rental r) {
@@ -39,10 +39,6 @@ public class Client extends User {
         this.pos = pos;
     }
 
-    public Client clone() {
-        return new Client(this);
-    }
-
     public List<Rental> getPendingRates() {
         return new ArrayList<>(this.pendingRates);
     }
@@ -56,5 +52,10 @@ public class Client extends User {
         Client client = (Client) o;
         return this.pos.equals(client.pos)
                 && this.pendingRates.equals(client.pendingRates);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

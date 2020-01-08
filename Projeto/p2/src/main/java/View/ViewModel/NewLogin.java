@@ -1,19 +1,19 @@
-package View.ViewModel;
+package view.viewmodel;
 
 public class NewLogin {
-    private final String User;
-    private final String Password;
+    private final String user;
+    private final String password;
 
     public NewLogin(String user, String password) {
-        User = user;
-        Password = password;
+        this.user = user;
+        this.password = password;
     }
 
     public String getUser() {
-        return User;
+        return user;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 }
