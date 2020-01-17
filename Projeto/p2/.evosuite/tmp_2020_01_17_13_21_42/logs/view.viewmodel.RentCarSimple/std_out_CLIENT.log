@@ -1,0 +1,72 @@
+* Starting client
+* Connecting to master process on port 12989
+* Analyzing classpath: 
+  - C:/Users/ASUS/Desktop/MIEI/4º Ano/ATS/ATS/Projeto/p2/target/classes
+  - C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\target\classes
+* Finished analyzing classpath
+* Generating tests for class view.viewmodel.RentCarSimple
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 14:26:01.385 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\view.viewmodel.RentCarSimple.seed
+* Loaded 0 tests from C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\view.viewmodel.RentCarSimple.seed
+* Total number of test goals: 
+  - Line 9
+  - Branch 3
+  - Exception 0
+  - MutationFactory 0
+  - Output 4
+  - Method 3
+  - MethodNoException 3
+  - CBranchFitnessFactory 3
+* Using seed 1579271158440
+* Starting evolution
+* Search finished after 31s and 908 generations, 113466 statements, best individual has fitness: 14.133333333333333
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 56%
+* Total number of goals: 9
+* Number of covered goals: 5
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 33%
+* Total number of goals: 3
+* Number of covered goals: 1
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100%
+* Total number of goals: 2
+* Number of covered goals: 2
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 100% (no goals)
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 0%
+* Total number of goals: 4
+* Number of covered goals: 0
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 33%
+* Total number of goals: 3
+* Number of covered goals: 1
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 0%
+* Total number of goals: 3
+* Number of covered goals: 0
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 33%
+* Total number of goals: 3
+* Number of covered goals: 1
+* Generated 2 tests with total length 4
+* Resulting test suite's coverage: 44% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 100%
+* Compiling and checking tests
+* Writing JUnit test case 'RentCarSimple_ESTest' to C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\tmp_2020_01_17_13_21_42\tests
+* Done!
+

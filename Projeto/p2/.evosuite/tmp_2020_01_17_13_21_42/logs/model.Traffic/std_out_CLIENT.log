@@ -1,0 +1,90 @@
+* Starting client
+* Connecting to master process on port 9964
+* Analyzing classpath: 
+  - C:/Users/ASUS/Desktop/MIEI/4º Ano/ATS/ATS/Projeto/p2/target/classes
+  - C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\target\classes
+* Finished analyzing classpath
+* Generating tests for class model.Traffic
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 14:18:38.891 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\model.Traffic.seed
+* Loaded 0 tests from C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\model.Traffic.seed
+* Total number of test goals: 
+  - Line 9
+  - Branch 9
+  - Exception 0
+  - MutationFactory 107
+  - Output 3
+  - Method 2
+  - MethodNoException 2
+  - CBranchFitnessFactory 9
+* Using seed 1579270716107
+* Starting evolution
+* Search finished after 80s and 1440 generations, 310435 statements, best individual has fitness: 63.56527777777778
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 78%
+* Total number of goals: 9
+* Number of covered goals: 7
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 67%
+* Total number of goals: 9
+* Number of covered goals: 6
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100% (no goals)
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 53%
+* Total number of goals: 107
+* Number of covered goals: 57
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 67%
+* Total number of goals: 3
+* Number of covered goals: 2
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 100%
+* Total number of goals: 2
+* Number of covered goals: 2
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 100%
+* Total number of goals: 2
+* Number of covered goals: 2
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 67%
+* Total number of goals: 9
+* Number of covered goals: 6
+* Generated 2 tests with total length 5
+* Resulting test suite's coverage: 79% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 57%
+* Compiling and checking tests
+[MASTER] 14:20:01.267 [pool-2-thread-1] WARN  JUnitAnalyzer - Found unstable test named test0 -> class java.lang.AssertionError: expected:<0.4963470975613064> but was:<0.37155398220970376>
+[MASTER] 14:20:01.267 [pool-2-thread-1] WARN  JUnitAnalyzer - Failing test:
+ System.setCurrentTimeMillis(668L);
+Traffic traffic0 = new Traffic();
+double double0 = traffic0.getTraficDelay(668L);
+assertEquals(0.4963470975613064, double0, 0.01);
+
+
+[MASTER] 14:20:01.452 [pool-2-thread-1] WARN  JUnitAnalyzer - Found unstable test named test0 -> class java.lang.AssertionError: expected:<0.06103560466036695> but was:<-0.113137535694804>
+[MASTER] 14:20:01.452 [pool-2-thread-1] WARN  JUnitAnalyzer - Failing test:
+ Traffic traffic0 = new Traffic();
+double double0 = traffic0.getTraficDelay((-1.0));
+assertEquals(0.06103560466036695, double0, 0.01);
+
+
+* Permissions denied during test execution: 
+  - java.lang.RuntimePermission: 
+         loadLibrary.sunmscapi: 1
+* Writing JUnit test case 'Traffic_ESTest' to C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\tmp_2020_01_17_13_21_42\tests
+* Done!
+

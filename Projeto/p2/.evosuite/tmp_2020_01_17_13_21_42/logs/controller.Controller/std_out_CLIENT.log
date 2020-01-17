@@ -1,0 +1,75 @@
+* Starting client
+* Connecting to master process on port 5760
+* Analyzing classpath: 
+  - C:/Users/ASUS/Desktop/MIEI/4º Ano/ATS/ATS/Projeto/p2/target/classes
+  - C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\target\classes
+* Finished analyzing classpath
+* Generating tests for class controller.Controller
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 13:39:06.481 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\controller.Controller.seed
+* Loaded 0 tests from C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\evosuite-seeds\controller.Controller.seed
+* Total number of test goals: 
+  - Line 239
+  - Branch 80
+  - Exception 0
+  - MutationFactory 111
+  - Output 0
+  - Method 17
+  - MethodNoException 17
+  - CBranchFitnessFactory 80
+* Using seed 1579268341102
+* Starting evolution
+* Search finished after 474s and 1548 generations, 228748 statements, best individual has fitness: 276.83822222969314
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 27%
+* Total number of goals: 239
+* Number of covered goals: 64
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 46%
+* Total number of goals: 80
+* Number of covered goals: 37
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100%
+* Total number of goals: 23
+* Number of covered goals: 23
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 25%
+* Total number of goals: 111
+* Number of covered goals: 28
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 100% (no goals)
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 100%
+* Total number of goals: 17
+* Number of covered goals: 17
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 65%
+* Total number of goals: 17
+* Number of covered goals: 11
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 46%
+* Total number of goals: 80
+* Number of covered goals: 37
+* Generated 33 tests with total length 144
+* Resulting test suite's coverage: 64% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 6%
+* Compiling and checking tests
+* Permissions denied during test execution: 
+  - java.lang.RuntimePermission: 
+         writeFileDescriptor: 2
+* Writing JUnit test case 'Controller_ESTest' to C:\Users\ASUS\Desktop\MIEI\4º Ano\ATS\ATS\Projeto\p2\.evosuite\tmp_2020_01_17_13_21_42\tests
+* Done!
+
