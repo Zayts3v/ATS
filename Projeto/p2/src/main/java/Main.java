@@ -3,17 +3,20 @@
 //import model.UMCarroJa;
 
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
 import java.util.logging.Logger;
-
 
 public class Main {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
+        FileWriter fw;
+
         UMCarroJa model = new UMCarroJa();
         double[] before = EnergyCheckUtils.getEnergyStats();
-        
+         
         try {
             model = UMCarroJa.read(".tmp");
         } catch (IOException | ClassNotFoundException e) {
@@ -21,7 +24,17 @@ public class Main {
         }
 
         double[] after = EnergyCheckUtils.getEnergyStats();  
-        System.out.println("Energy consumption of dram: " + (after[0] - before[0])+ " Energy consumption of cpu: " + (after[1] - before[1])+ " Energy consumption of package: " + (after[2] - before[2]));
+            
+        try {
+            fw = new FileWriter(new File("output.txt"));
+
+            fw.write("Energy consumption of dram: " + (after[0] - before[0]) +
+                         " Energy consumption of cpu: " + (after[1] - before[1]) +
+                           " Energy consumption of package: " + (after[2] - before[2]));
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
         try {
             Thread.sleep(30);

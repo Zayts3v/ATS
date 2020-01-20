@@ -1,7 +1,0 @@
-Energy consumption of dram: 0.3822019999997792 Energy consumption of cpu: 7.191222999999809 Energy consumption of package: 8.369080000004033
-c[31m	--INITIAL--
-[0m
-
-1- Login
-2- Registar novo utilizador
-
