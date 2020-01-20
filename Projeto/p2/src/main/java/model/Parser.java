@@ -71,14 +71,12 @@ public class Parser {
                     if (content.length != 10) {
                         break;
                     }
-                    String nova = new StringBuilder()
-                                   .append(content[3])
-                                   .append("@gmail.com")
-                                   .toString();
-                    System.out.println(nova);
                     model.addCar(
                             content[2],
-                            nova,
+                            new StringBuilder()
+                                   .append(content[3])
+                                   .append("@gmail.com")
+                                   .toString(),
                             Car.CarType.fromString(content[0]),
                             Double.parseDouble(content[4]),
                             Double.parseDouble(content[5]),

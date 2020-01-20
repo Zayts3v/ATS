@@ -12,18 +12,25 @@ public class Main {
 
     public static void main(String[] args) {
         UMCarroJa model = new UMCarroJa();
+
         try {
             model = UMCarroJa.read(".tmp");
-        }
-        catch (IOException | ClassNotFoundException e) {
-            System.out.println("passei aqui crl");
+        } catch (IOException | ClassNotFoundException e) {
             new Parser("db/Exemplo.bak", model);
         }
-        try { Thread.sleep(10000);} catch (Exception e) { logger.warning(e.toString()); }
+
+        try {
+            Thread.sleep(30);
+        } catch (Exception e) {
+            logger.warning(e.toString());
+        }
+
         new Controller(model).run();
+
         try {
             model.save(".tmp");
+        } catch (IOException ignored) {
+            logger.warning("Not saved!");
         }
-        catch (IOException ignored) { logger.warning("Not saved!"); }
     }
 }
