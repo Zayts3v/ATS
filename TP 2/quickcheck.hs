@@ -80,15 +80,13 @@ runGen g nifC nifP = evalStateT g defaultState { nifClientes = nifC , nifProp = 
 genInitial :: Gen [String]
 genInitial = do nomeC   <- elements listaNomes
                 nifC    <- genNif []
-                l1C     <- choose (0::Int, 999999999)
-                emailC  <- return (show(l1C)++"@gmail.com")
+                emailC  <- return (show(nifC) ++ "@gmail.com")
                 moradaC <- elements listaLocalidades
                 xC      <- genX
                 yC      <- genY
                 nomeP   <- elements listaNomes
                 nifP    <- genNif [show(nifC)]
-                l1P     <- choose (0::Int, 999999999)
-                emailP  <- return (show(l1P)++"@gmail.com")
+                emailP  <- return (show(nifP)++"@gmail.com")
                 moradaP <- elements listaLocalidades
                 let cliente      = ("NovoCliente:" ++ nomeC ++ "," ++ show(nifC) ++ "," ++ emailC ++ "," ++ moradaC ++ "," ++ show(xC) ++ "," ++ show(yC))
                 let proprietario = ("NovoProp:" ++ nomeP ++ "," ++ show(nifP) ++ "," ++ emailP ++ "," ++ moradaP)
@@ -181,8 +179,7 @@ genCliente = do nome   <- lift $ elements listaNomes
                 nif    <- lift $ genNif lista
                 modify (\ state -> state { nifClientes = show(nif):nifClientes state})
                 modify (\ state -> state { classprop = show(nif):classprop state})
-                l1     <- lift $ choose (0::Int, 999999999)
-                email  <- lift $ return (show(l1)++"@gmail.com")
+                email  <- lift $ return (show(nif)++"@gmail.com")
                 morada <- lift $ elements listaLocalidades
                 x      <- lift $ genX
                 y      <- lift $ genY
@@ -195,8 +192,7 @@ genProprietario = do nome   <- lift $ elements listaNomes
                      nif    <- lift $ genNif lista
                      modify (\ state -> state { nifProp = show(nif):nifProp state})
                      modify (\ state -> state { classprop = show(nif):classprop state})
-                     l1     <- lift $ choose (0::Int, 999999999) 
-                     email  <- lift $ return (show(l1)++"@gmail.com")
+	                 email  <- lift $ return (show(nif)++"@gmail.com")
                      morada <- lift $ elements listaLocalidades
                      return $ ("NovoProp:" ++ nome ++ "," ++ show(nif) ++
                                 "," ++ email ++ "," ++ morada)

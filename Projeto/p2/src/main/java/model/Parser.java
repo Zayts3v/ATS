@@ -45,7 +45,7 @@ public class Parser {
         try {
             switch (categoria) {
                 case "NovoProp":
-                    if (content.length != 4)
+                    if (content.length != 4)    
                         break;
                     model.addUser(new Owner(
                             content[2],
@@ -71,12 +71,14 @@ public class Parser {
                     if (content.length != 10) {
                         break;
                     }
+                    String nova = new StringBuilder()
+                                   .append(content[3])
+                                   .append("@gmail.com")
+                                   .toString();
+                    System.out.println(nova);
                     model.addCar(
                             content[2],
-                            new StringBuilder()
-                                    .append(content[3])
-                                    .append("@gmail.com")
-                                    .toString(),
+                            nova,
                             Car.CarType.fromString(content[0]),
                             Double.parseDouble(content[4]),
                             Double.parseDouble(content[5]),
@@ -102,7 +104,7 @@ public class Parser {
                     break;
             }
         }
-        catch (InvalidUserException
+        catch ( InvalidUserException
                 | UserExistsException
                 | CarExistsException
                 | UnknownCarTypeException
