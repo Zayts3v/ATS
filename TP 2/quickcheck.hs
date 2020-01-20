@@ -192,7 +192,7 @@ genProprietario = do nome   <- lift $ elements listaNomes
                      nif    <- lift $ genNif lista
                      modify (\ state -> state { nifProp = show(nif):nifProp state})
                      modify (\ state -> state { classprop = show(nif):classprop state})
-	                 email  <- lift $ return (show(nif)++"@gmail.com")
+                     email  <- lift $ return (show(nif)++"@gmail.com")
                      morada <- lift $ elements listaLocalidades
                      return $ ("NovoProp:" ++ nome ++ "," ++ show(nif) ++
                                 "," ++ email ++ "," ++ morada)
