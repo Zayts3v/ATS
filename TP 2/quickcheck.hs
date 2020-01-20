@@ -171,7 +171,7 @@ genCarro =  do  tipo      <- lift $ genTipo
                 x         <- lift $ genX
                 y         <- lift $ genY
                 return ("NovoCarro:" ++ show(tipo) ++ "," ++ marca ++ "," ++ 
-                         matricula ++ "," ++ show(nif) ++ "," ++ show(velMedia) ++
+                         matricula ++ "," ++ nif ++ "," ++ show(velMedia) ++
                           "," ++ show(ppkm) ++ "," ++ show(cpkm) ++ "," ++
                            show(autonomia) ++ "," ++ show(x) ++ "," ++ show(y))
 
