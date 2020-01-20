@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         UMCarroJa model = new UMCarroJa();
         try {
-            model = UMCarroJa.read(".tmp");
+            model = UMCarroJa.read("db/logsPOO_carregamentoInicial.bak");
         }
         catch (IOException | ClassNotFoundException e) {
             new Parser("db/logsPOO_carregamentoInicial.bak", model);
