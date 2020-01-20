@@ -48,7 +48,7 @@ main = do putStrLn "Give me a file to print the output"
           let cliente = (take 1 strings)
           let prop    = (take 1 (drop 1 strings))
           let output2 = (cliente ++ prop)
-          writeFile file2 $ unlines $ filter (/="") (reverse(output) ++ output2)
+          writeFile file2 $ unlines $ filter (/="") (output2 ++ reverse(output))
 
 -- State
 genLogs lognumber = fmap sort . replicateM lognumber $ do
@@ -163,7 +163,7 @@ genCarro =  do  tipo      <- lift $ genTipo
                 matricula <- lift $ genMatricula
                 modify (\ state -> state { classprop = matricula:classprop state})
                 lista     <- gets nifProp
-                nif       <- lift $ genNif lista
+                nif       <- lift $ elements lista
                 velMedia  <- lift $ genVelMedia
                 ppkm      <- lift $ genPPKm
                 cpkm      <- lift $ genCPKm

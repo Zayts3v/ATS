@@ -5,6 +5,8 @@
 
 package model;
 
+import exceptions.CarExistsException;
+import exceptions.InvalidUserException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.evosuite.runtime.EvoAssertions.*;
@@ -868,4 +870,20 @@ public class UMCarroJa_ESTest extends UMCarroJa_ESTest_scaffolding {
       List<Map.Entry<String, Double>> list0 = (List<Map.Entry<String, Double>>)uMCarroJa0.getBestClientsTravel();
       assertTrue(list0.isEmpty());
   }
+
+    @Test(timeout = 4000)
+    public void testaAdicionaCarro()  throws CarExistsException, InvalidUserException {
+        UMCarroJa uMCarroJa2 = new UMCarroJa();
+        Owner ow = new Owner("maria@hotmail.com", "maria", "Braga", 0, "maria");
+        Car.CarType ctype = Car.CarType.HYBRID;
+        Point p = new Point(1.2, 1.3);
+        Car c = new Car("2", ow, ctype, (-1.0), 1630.4697528, 3.0, 2, p, "SDd6H");
+        try {
+            uMCarroJa2.addCar((String) null, "@gmail.com", ctype, (-2362.3836), (-2362.3836), (-500.06799), 0, p, (String) null);
+            ow.addCar(c);
+
+        } catch(Exception e) {
+
+        }
+    }
 }
