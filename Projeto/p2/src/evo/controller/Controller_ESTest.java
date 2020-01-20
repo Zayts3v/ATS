@@ -527,4 +527,12 @@ public class Controller_ESTest extends Controller_ESTest_scaffolding {
          verifyException("java.util.Scanner", e);
       }
   }
+  /*
+  @Test(timeout = 4000)
+  public void testRegistClient(){
+      Client a1 = new Client();
+      Controller c = new Controller();
+      c.registerClient();
+      assertEquals(c.historyClient().a1));
+  }*/
 }

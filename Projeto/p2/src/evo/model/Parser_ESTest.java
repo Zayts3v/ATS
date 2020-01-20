@@ -5,7 +5,12 @@
 
 package model;
 
+import exceptions.CarExistsException;
+import exceptions.NoCarAvaliableException;
+import exceptions.UserExistsException;
 import org.junit.Test;
+
+import static model.Car.CarType.ELECTRIC;
 import static org.junit.Assert.*;
 import static org.evosuite.runtime.EvoAssertions.*;
 import java.nio.file.InvalidPathException;
@@ -14,6 +19,7 @@ import model.UMCarroJa;
 import org.evosuite.runtime.EvoRunner;
 import org.evosuite.runtime.EvoRunnerParameters;
 import org.junit.runner.RunWith;
+import utils.Point;
 
 @RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = true, useJEE = true) 
 public class Parser_ESTest extends Parser_ESTest_scaffolding {
@@ -90,4 +96,42 @@ public class Parser_ESTest extends Parser_ESTest_scaffolding {
       Parser parser0 = new Parser();
       parser0.hashCode();
   }
+
+  @Test
+  public void test7() throws UserExistsException {
+      Users us = new Users();
+      try {
+          us.addUser(cl);
+      }
+      catch (Exception e) {
+      }
+  }
+
+    @Test
+    public void test8() throws CarExistsException {
+        Cars ca = new Cars();
+        try {
+            ca.addCar(c);
+        }
+        catch (Exception e) {
+
+        }
+    }
+
+    Point p = new Point(1.1,1.2);
+    Client cl = new Client(p, "X", "(951.27, 951.27)", "X", "(951.27, 951.27)", (-2452));
+    Owner o = new Owner("email", "name", "address", 123456789, "passd");
+    Car c = new Car("1", o, ELECTRIC, (-2234.72741484), (-2234.72741484), (-2234.72741484), 402, p, "B=`h4M7Dxt0Mo3C4o");
+
+    @Test
+    public void test9() throws NoCarAvaliableException{
+        c.swapState();
+        try {
+            Rental r = new Rental(c, cl, p);
+            r.rent();
+        }
+        catch (Exception e) {
+
+        }
+    }
 }
