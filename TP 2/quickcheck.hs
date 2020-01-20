@@ -87,8 +87,8 @@ genInitial = do nomeC   <- elements listaNomes
                 l1P     <- choose (0::Int, 999999999)
                 emailP  <- return (show(l1P)++"@gmail.com")
                 moradaP <- elements listaLocalidades
-                let cliente      = ("Cliente:" ++ nomeC ++ "," ++ show(nifC) ++ "," ++ emailC ++ "," ++ moradaC ++ "," ++ show(xC) ++ "," ++ show(yC))
-                let proprietario = ("Proprietario:" ++ nomeP ++ "," ++ show(nifP) ++ "," ++ emailP ++ "," ++ moradaP)
+                let cliente      = ("NovoCliente:" ++ nomeC ++ "," ++ show(nifC) ++ "," ++ emailC ++ "," ++ moradaC ++ "," ++ show(xC) ++ "," ++ show(yC))
+                let proprietario = ("NovoProp:" ++ nomeP ++ "," ++ show(nifP) ++ "," ++ emailP ++ "," ++ moradaP)
                 return ([cliente]++[proprietario]++[show(nifC)]++[show(nifP)])
 
 genTipo :: Gen Tipo
@@ -167,7 +167,7 @@ genCarro =  do  tipo      <- lift $ genTipo
                 autonomia <- lift $ genAutonomia
                 x         <- lift $ genX
                 y         <- lift $ genY
-                return ("Carro:" ++ show(tipo) ++ "," ++ marca ++ "," ++ 
+                return ("NovoCarro:" ++ show(tipo) ++ "," ++ marca ++ "," ++ 
                          matricula ++ "," ++ show(nif) ++ "," ++ show(velMedia) ++
                           "," ++ show(ppkm) ++ "," ++ show(cpkm) ++ "," ++
                            show(autonomia) ++ "," ++ show(x) ++ "," ++ show(y))
@@ -183,7 +183,7 @@ genCliente = do nome   <- lift $ elements listaNomes
                 morada <- lift $ elements listaLocalidades
                 x      <- lift $ genX
                 y      <- lift $ genY
-                return $ ("Cliente:" ++ nome ++ "," ++ show(nif) ++ "," ++ email ++
+                return $ ("NovoCliente:" ++ nome ++ "," ++ show(nif) ++ "," ++ email ++
                          "," ++ morada ++ "," ++ show(x) ++ "," ++ show(y))
 
 genProprietario :: StGen String
@@ -195,7 +195,7 @@ genProprietario = do nome   <- lift $ elements listaNomes
                      l1     <- lift $ choose (0::Int, 999999999) 
                      email  <- lift $ return (show(l1)++"@gmail.com")
                      morada <- lift $ elements listaLocalidades
-                     return $ ("Proprietario:" ++ nome ++ "," ++ show(nif) ++
+                     return $ ("NovoProp:" ++ nome ++ "," ++ show(nif) ++
                                 "," ++ email ++ "," ++ morada)
 
 genAluguer :: StGen String
@@ -212,4 +212,4 @@ genClassificar :: StGen String
 genClassificar = do identificacao  <- gets classprop
                     id             <- lift $ elements identificacao
                     nota           <- lift $ genNota
-                    return $ ("Classificacao:" ++ id ++ "," ++ show(nota))
+                    return $ ("Classificar:" ++ id ++ "," ++ show(nota))

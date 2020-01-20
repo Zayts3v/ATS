@@ -13,9 +13,10 @@ public class Main {
     public static void main(String[] args) {
         UMCarroJa model = new UMCarroJa();
         try {
-            model = UMCarroJa.read("db/logsPOO_carregamentoInicial.bak");
+            model = UMCarroJa.read(".tmp");
         }
         catch (IOException | ClassNotFoundException e) {
+            System.out.println("passei aqui crl");
             new Parser("db/logsPOO_carregamentoInicial.bak", model);
         }
         try { Thread.sleep(10000);} catch (Exception e) { logger.warning(e.toString()); }
