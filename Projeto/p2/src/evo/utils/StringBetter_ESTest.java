@@ -88,7 +88,7 @@ public class StringBetter_ESTest extends StringBetter_ESTest_scaffolding {
       stringBetter18.roxo();
       stringBetter17.white();
       // Undeclared exception!
-      stringBetter7.repeat(4064);
+      stringBetter7.repeat(2242);
   }
 
   @Test(timeout = 4000)
