@@ -32,25 +32,28 @@ type Nota        = Int
 -- Main
 main :: IO ()
 main = do putStrLn "Give me a file to print the output"
-          file    <- getLine 
+          file    <- getLine
+          putStrLn "Give a number to generate"
+          inputjar <- getLine
+          let lognumber = read inputjar :: Int
           initial <- generate $ genInitial
           writeFile file $ unlines $ filter (/="") initial     
           content <- readFile file
           let strings = lines content
           let nifC    = (drop 2 (take 3 strings))
           let nifP    = (drop 3 strings)
-          output  <- generate $ runGen (genLogs) nifC nifP
+          output  <- generate $ runGen (genLogs lognumber) nifC nifP
           putStrLn "Give me a file to print the output"
           file2   <- getLine
           let cliente = (take 1 strings)
           let prop    = (take 1 (drop 1 strings))
           let output2 = (cliente ++ prop)
-          writeFile file2 $ unlines $ filter (/="") (output ++ output2)
+          writeFile file2 $ unlines $ filter (/="") (reverse(output) ++ output2)
 
 -- State
-genLogs = fmap sort . replicateM 3300 $ do
-    g <- lift $ frequency [(288,return genProprietario),(350,return genCliente),(2000,return genCarro),
-                           (461,return genAluguer),(201,return genClassificar)] :: StGen (StGen String)
+genLogs lognumber = fmap sort . replicateM lognumber $ do
+    g <- lift $ frequency [(8,return genProprietario),(10,return genCliente),(60,return genCarro),
+                           (14,return genAluguer),(8,return genClassificar)] :: StGen (StGen String)
     g
 
 type StGen a = StateT GenState Gen a
