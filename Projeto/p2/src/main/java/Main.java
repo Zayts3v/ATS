@@ -17,7 +17,7 @@ public class Main {
         }
         catch (IOException | ClassNotFoundException e) {
             System.out.println("passei aqui crl");
-            new Parser("db/logsPOO_carregamentoInicial.bak", model);
+            new Parser("db/Exemplo.bak", model);
         }
         try { Thread.sleep(10000);} catch (Exception e) { logger.warning(e.toString()); }
         new Controller(model).run();
