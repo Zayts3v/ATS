@@ -98,7 +98,7 @@ public class Parser_ESTest extends Parser_ESTest_scaffolding {
   }
 
   @Test
-  public void test7() throws UserExistsException {
+  public void testaCategoriaUser() throws UserExistsException {
       Users us = new Users();
       try {
           us.addUser(cl);
@@ -108,7 +108,7 @@ public class Parser_ESTest extends Parser_ESTest_scaffolding {
   }
 
     @Test
-    public void test8() throws CarExistsException {
+    public void testaCategoriaCar() throws CarExistsException {
         Cars ca = new Cars();
         try {
             ca.addCar(c);
@@ -124,7 +124,7 @@ public class Parser_ESTest extends Parser_ESTest_scaffolding {
     Car c = new Car("1", o, ELECTRIC, (-2234.72741484), (-2234.72741484), (-2234.72741484), 402, p, "B=`h4M7Dxt0Mo3C4o");
 
     @Test
-    public void test9() throws NoCarAvaliableException{
+    public void testaAluguer() throws NoCarAvaliableException{
         c.swapState();
         try {
             Rental r = new Rental(c, cl, p);

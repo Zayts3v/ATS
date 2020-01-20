@@ -5,6 +5,7 @@
 
 package model;
 
+import controller.Controller;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.evosuite.runtime.EvoAssertions.*;
@@ -167,4 +168,5 @@ public class User_ESTest extends User_ESTest_scaffolding {
       Client client1 = new Client(client0);
       assertEquals(100, client1.getRates());
   }
+
 }
