@@ -2,5 +2,5 @@ projectKey=demo1-v4:demo1-v4
 serverUrl=http://localhost:9000
 serverVersion=7.9.1.27448
 dashboardUrl=http://localhost:9000/dashboard?id=demo1-v4%3Ademo1-v4
-ceTaskId=AW-y96X0qXhhhnQXm4te
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AW-y96X0qXhhhnQXm4te
+ceTaskId=AW_FG-uZqXhhhnQXm4tg
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AW_FG-uZqXhhhnQXm4tg

@@ -290,7 +290,7 @@ public class Menu{
                 this.run = false;
                 break;
             default:
-                System.out.println("Opção Inválida");
+                out.println("Opção Inválida");
                 break;
         }
 
